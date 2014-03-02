@@ -5,7 +5,7 @@
 ** Login   <mathon_j@mathonj>
 **
 ** Started on  Fri Feb 28 22:48:39 2014 Jérémy MATHON
-** Last update Sun Mar  2 16:04:03 2014 Jérémy MATHON
+** Last update Sun Mar  2 17:46:15 2014 Jérémy MATHON
 */
 
 #include	<unistd.h>
@@ -40,6 +40,16 @@ while (str[i] != 0)
   return (tmp);
 }
 
+int		check_str(char *str)
+{
+ if ((strcmp("|------------------|", str)) != 0)
+    {
+      my_putstr("Wrong sudoki file.\n");
+      return (0);
+    }
+ return (1);
+}
+
 char		**my_parser(int ac, char **av, char **map, int i)
 {
   char		*str;
@@ -49,11 +59,8 @@ char		**my_parser(int ac, char **av, char **map, int i)
       my_putstr("./sudoki-bi < [file].txt\n");
       return (NULL);
     }
-  if ((strcmp("|------------------|", str)) != 0)
-    {
-      my_putstr("Wrong sudoki file.\n");
-      return (NULL);
-    }
+  if (check_str(str) == 0)
+    return (NULL);
   map = my_malloc(sizeof(char*) * (9 + 1));
   map[9] = NULL;
   while (i++ != 8)
@@ -62,11 +69,8 @@ char		**my_parser(int ac, char **av, char **map, int i)
       map[i] = get_next_line(0);
     }
   str = get_next_line(0);
-  if ((strcmp("|------------------|", str)) != 0)
-    {
-      my_putstr("Wrong sudoki file.\n");
-      return (NULL);
-    }
+  if (check_str(str) == 0)
+    return (NULL);
   return (map);
 }
 
@@ -81,7 +85,6 @@ int	main(int ac, char **av)
   map = check_map(map);
   while (i++ != 8)
     map[i] = my_parstr(map[i]);
-  show_map(map);
   valide(map, 0);
   show_map(map);
   free(map);

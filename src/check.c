@@ -5,7 +5,7 @@
 ** Login   <cardon_v@epitech.net>
 **
 ** Started on  Fri Feb 28 22:37:57 2014 Valentin Cardon
-** Last update Sun Mar  2 16:30:53 2014 Jérémy MATHON
+** Last update Sun Mar  2 17:21:56 2014 Jérémy MATHON
 */
 
 #include	"../include/my_sudoki.h"
@@ -14,7 +14,7 @@ int		check_line(char **map, int k, int i)
 {
   int		j;
 
-  j = 1;
+  j = 0;
   while (j < 9)
     {
       if (map[i][j] == k)
@@ -28,7 +28,7 @@ int		check_colone(char **map, int k, int j)
 {
   int		i;
 
-  i = 1;
+  i = 0;
   while (i < 9)
     {
       if (map[i][j] == k)
