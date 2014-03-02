@@ -5,7 +5,7 @@
 ** Login   <mathon_j@mathonj>
 ** 
 ** Started on  Fri Feb 28 22:33:52 2014 Jérémy MATHON
-** Last update Sun Mar  2 11:44:06 2014 Jérémy MATHON
+** Last update Sun Mar  2 13:42:57 2014 Jérémy MATHON
 */
 
 #ifndef MY_SUDOKI_H_
@@ -33,5 +33,7 @@ void	my_show_list(t_list *list);
 t_list	*my_put_list(t_list *list, char c);
 int	valide(char **, int);
 void	*my_malloc(size_t size);
+char	**check_map(char **map);
+char	**show_map(char **map);
 
 #endif /* !MY_SUDOKI_H_ */

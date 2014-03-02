@@ -5,7 +5,7 @@
 ## Login   <mathon_j@epitech.net>
 ## 
 ## Started on  Mon Nov 25 15:37:45 2013 Jeremy Mathon
-## Last update Sun Mar  2 11:52:49 2014 Jérémy MATHON
+## Last update Sun Mar  2 15:30:26 2014 Jérémy MATHON
 ##
 
 SRCS	=		./src/main.c \
@@ -14,6 +14,7 @@ SRCS	=		./src/main.c \
 			./Parser/get_next_line.c \
 			./src/check.c \
 			./src/valid.c \
+			./src/my_map.c \
 			./src/my_putstr.c
 
 CC	=		gcc
@@ -25,7 +26,7 @@ OBJS	=		$(SRCS:.c=.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-			$(CC) -g -o $(NAME) $(SRCS)
+			$(CC) -O3 -o $(NAME) $(SRCS)
 			cp $(NAME) bin/
 			rm $(NAME)
 

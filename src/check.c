@@ -5,8 +5,10 @@
 ** Login   <cardon_v@epitech.net>
 **
 ** Started on  Fri Feb 28 22:37:57 2014 Valentin Cardon
-** Last update Sun Mar  2 06:29:52 2014 Jérémy MATHON
+** Last update Sun Mar  2 16:30:53 2014 Jérémy MATHON
 */
+
+#include	"../include/my_sudoki.h"
 
 int		check_line(char **map, int k, int i)
 {
@@ -16,10 +18,10 @@ int		check_line(char **map, int k, int i)
   while (j < 9)
     {
       if (map[i][j] == k)
-	return (1);
+	return (0);
       j++;
     }
-  return (0);
+  return (1);
 }
 
 int		check_colone(char **map, int k, int j)
@@ -30,10 +32,10 @@ int		check_colone(char **map, int k, int j)
   while (i < 9)
     {
       if (map[i][j] == k)
-	return (1);
+	return (0);
       i++;
     }
-  return (0);
+  return (1);
 }
 
 int		check_bloc(char **map, int k, int i, int j)
@@ -43,15 +45,18 @@ int		check_bloc(char **map, int k, int i, int j)
 
   ibis = 3 * (i / 3);
   jbis = 3 * (j / 3);
-  while (i <= (ibis + 3))
+  i = ibis;
+  j = jbis;
+  while (i < (ibis + 3))
     {
-      while (j <= (jbis + 3))
+      while (j < (jbis + 3))
 	{
 	  if (map[i][j] == k)
-	    return (1);
+	    return (0);
 	  j++;
 	}
+      j = jbis;
       i++;
     }
-  return (0);
+  return (1);
 }

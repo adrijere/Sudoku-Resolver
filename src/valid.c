@@ -5,7 +5,7 @@
 ** Login   <cardon_v@epitech.net>
 **
 ** Started on  Sat Mar  1 15:49:58 2014 Valentin Cardon
-** Last update Sun Mar  2 10:47:17 2014 Jérémy MATHON
+** Last update Sun Mar  2 16:06:33 2014 Jérémy MATHON
 */
 
 #include	<stdlib.h>
@@ -17,24 +17,23 @@ int		valide(char **map, int pos)
   int		j;
   int		k;
 
+  if (pos == 9 * 9)
+    return (1);
   i = pos / 9;
   j = pos % 9;
-  k = 1;
-  if (pos == 81)
-    return (0);
-  if (map[i][j] != 0)
+  if (map[i][j] != '0')
     return (valide(map, pos + 1));
-  while (k <= 9)
+  k = 0;
+  while (++k <= 9)
     {
-      if ((check_line(map, k, i) == 0)
-	  && (check_colone(map, k, j) == 0) && (check_bloc(map, k, i, j) == 0))
+      if ((check_line(map, k + 48, i) && check_colone(map, k + 48, j)
+	   && check_bloc(map, k + 48, i, j)))
 	{
-	  map[i][j] = k;
+	  map[i][j] = k + 48;
 	  if (valide(map, pos + 1))
-	    return (0);
+	    return (1);
 	}
-      k++;
     }
-  map[i][j] = 0;
-  return (1);
+  map[i][j] = '0';
+  return (0);
 }

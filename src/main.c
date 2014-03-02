@@ -5,7 +5,7 @@
 ** Login   <mathon_j@mathonj>
 **
 ** Started on  Fri Feb 28 22:48:39 2014 Jérémy MATHON
-** Last update Sun Mar  2 11:37:41 2014 Jérémy MATHON
+** Last update Sun Mar  2 16:04:03 2014 Jérémy MATHON
 */
 
 #include	<unistd.h>
@@ -17,19 +17,27 @@
 #include	<fcntl.h>
 #include	"../include/my_sudoki.h"
 
-char		**show_map(char **map)
+char		*my_parstr(char *str)
 {
+  char		*tmp;
   int		i;
+  int		j;
 
   i = 0;
-  my_putstr("|------------------|\n");
-  while (i != 9)
+  j = 0;
+  tmp = my_malloc(sizeof(char) * (9 + 1));
+  tmp[9] = '\0';
+while (str[i] != 0)
     {
-      my_putstr(map[i]);
-      my_putchar('\n');
+      if (str[i] >= 48 && str[i] <= 57)
+	{
+	  tmp[j] = str[i];
+	  j++;
+	  i++;
+	}
       i++;
     }
-  my_putstr("|------------------|\n");
+  return (tmp);
 }
 
 char		**my_parser(int ac, char **av, char **map, int i)
@@ -46,10 +54,11 @@ char		**my_parser(int ac, char **av, char **map, int i)
       my_putstr("Wrong sudoki file.\n");
       return (NULL);
     }
-  map = my_malloc(sizeof(char*) * 9);
+  map = my_malloc(sizeof(char*) * (9 + 1));
+  map[9] = NULL;
   while (i++ != 8)
     {
-      map[i] = my_malloc(sizeof(char) * 18);
+      map[i] = my_malloc(sizeof(char) * 18 + 1);
       map[i] = get_next_line(0);
     }
   str = get_next_line(0);
@@ -57,48 +66,6 @@ char		**my_parser(int ac, char **av, char **map, int i)
     {
       my_putstr("Wrong sudoki file.\n");
       return (NULL);
-    }
-  return (map);
-}
-
-char		**check_map(char **map)
-{
-  int		i;
-  int		j;
-
-  i = 0;
-  j = 2;
-  while (i != 9)
-    {
-      while (j <= 18)
-	{
-	  if (map[i][j] == ' ')
-	    map[i][j] = '0';
-	  j += 2;
-	}
-      j = 0;
-      i++;
-    }
-  return (map);
-}
-
-char	**suppr_espace(char **map)
-{
-  int	i;
-  int	j;
-
-  i = 0;
-  j = 0;
-  while (i != 9)
-    {
-      while (j <= 18)
-	{
-	  if (map[i][j] == ' ')
-	    map[i][j] = '.';
-	  j++;
-	}
-      j = 0;
-      i++;
     }
   return (map);
 }
@@ -111,9 +78,10 @@ int	main(int ac, char **av)
   i = -1;
   if ((map = my_parser(ac, av, map, i)) == NULL)
     return (1);
-  show_map(map);
   map = check_map(map);
-  map = suppr_espace(map);
+  while (i++ != 8)
+    map[i] = my_parstr(map[i]);
+  show_map(map);
   valide(map, 0);
   show_map(map);
   free(map);
